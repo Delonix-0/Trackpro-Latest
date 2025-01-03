@@ -1,79 +1,89 @@
 package track.pro.project.entites;
 
-
+/*`project_id`, `project_name`, `description`, `created_by`, `status`, `created_at`*/
 
 public class Project {
-    private int projectId;
-    private String projectName;
-    private String description;
-    private int createdBy;
-    private String status;
-    private String startedAt;
-    private String completedAt;
+	private int projectId;
+	private String projectName;
+	private String description;
+	private int assignedTo;
+	private boolean status;
+	private String createdAt;
+
+	public Project(int projectId, String projectName) {
+		super();
+		this.projectId = projectId;
+		this.projectName = projectName;
+	}
+
 	public Project() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Project(int projectId, String projectName, String description, int createdBy, String status,
-			String startedAt, String completedAt) {
+
+	public Project(int projectId, String projectName, String description, int assignedTo, boolean status,
+			String createdAt) {
 		super();
 		this.projectId = projectId;
 		this.projectName = projectName;
 		this.description = description;
-		this.createdBy = createdBy;
+		this.assignedTo = assignedTo;
 		this.status = status;
-		this.startedAt = startedAt;
-		this.completedAt = completedAt;
+		this.createdAt = createdAt;
 	}
+
 	public int getProjectId() {
 		return projectId;
 	}
+
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
 	}
+
 	public String getProjectName() {
 		return projectName;
 	}
+
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getCreatedBy() {
-		return createdBy;
+
+	public int getAssignedTo() {
+		return assignedTo;
 	}
-	public void setCreatedBy(int createdBy) {
-		this.createdBy = createdBy;
+
+	public void setAssignedTo(int assignedTo) {
+		this.assignedTo = assignedTo;
 	}
-	public String getStatus() {
+
+	public boolean isStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public String getStartedAt() {
-		return startedAt;
+
+	public String getCreatedAt() {
+		return createdAt;
 	}
-	public void setStartedAt(String startedAt) {
-		this.startedAt = startedAt;
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
 	}
-	public String getCompletedAt() {
-		return completedAt;
-	}
-	public void setCompletedAt(String completedAt) {
-		this.completedAt = completedAt;
-	}
+
 	@Override
 	public String toString() {
 		return "Project [projectId=" + projectId + ", projectName=" + projectName + ", description=" + description
-				+ ", createdBy=" + createdBy + ", status=" + status + ", startedAt=" + startedAt + ", completedAt="
-				+ completedAt + "]";
+				+ ", assignedTo=" + assignedTo + ", status=" + status + ", createdAt=" + createdAt + "]";
 	}
-    
-    
 
-    }
+}

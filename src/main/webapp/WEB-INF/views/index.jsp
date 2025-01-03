@@ -4,12 +4,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home Page</title>
+<title>Index Page</title>
+
+   <link  href="../css/login.css" rel="stylesheet" type="text/css" / >
+       
 </head>
-<link  href="../css/styles.css" rel="stylesheet" type="text/css" / >
+
 <body>
-<h1>This is Home Page</h1>
-<p><a href="openloginPage">Login</a></p>
- 
+    
+    
+ <div class="navbar">
+ <div class="logo">
+ <img src="../images/TrackPro.png" alt="Logo">
+ </div>
+
+ </div>
+
+ <section class="hero">
+ <div class="hero-content">
+ <h1>Unlock your professional potential</h1>
+ <h2>With Maximize Productivity, Minimize Wasted Time.</h2>
+ <div class="hero-buttons">
+ <a href="openRegistrationPage">Register</a>
+ <a href="openloginPage">Login</a>
+ </div>
+ </div>
+ </section>
+
 </body>
 </html>
