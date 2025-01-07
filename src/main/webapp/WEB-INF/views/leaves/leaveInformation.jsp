@@ -6,84 +6,28 @@
 	<meta charset="UTF-8">
 	<title>Leave Information</title>
 	<link href="../css/styles.css" rel="stylesheet" type="text/css" />
-	<script>
-		function getCookie(name) {
-			let cookieArr = document.cookie.split(";");
-			for (let i = 0; i < cookieArr.length; i++) {
-				let cookiePair = cookieArr[i].split("=");
-				if (name == cookiePair[0].trim()) {
-					return decodeURIComponent(cookiePair[1]);
-				}
-			}
-			return null;
-		}
-
-		function redirectToDashboard() {
-			// Get the user role from the cookie
-			let userRole = getCookie("user_role");
-
-			// Redirect based on the user role
-			if (userRole == "2") {
-				window.location.href = "/managerDashboard";
-			} else if (userRole == "3") {
-				window.location.href = "/assosiateDashboard";
-			}
-		}
-	</script>
-</head>
-<body>
-	<header>
-		<div class="centre-text-fullheight-leave">
-			<h1>Leave Information</h1>
-		</div>
-
-		<button class="button-17" onclick="redirectToDashboard()">Back to Dashboard</button>
-	</header>
-
-	<main>
-		<section>
-			<div class="centre-text-fullheight">
-				<h1>Your Leave Requests</h1>
-			</div>
-
-			<c:if test="${not empty errorMessage}">
-				<div class="error">${errorMessage}</div>
-			</c:if>
-
-			<c:if test="${empty leaveInformation}">
-				<div class="centre-text-fullheight">
-					<p>No leave records found.</p>
-				</div>
-			</c:if>
-
-			<c:if test="${not empty leaveInformation}">
-				<div class="leave-requests-container">
-					<c:forEach items="${leaveInformation}" var="leave">
-						<div class="leave-request-card">
-							<div class="leave-header">
-								<span class="leave-type">${leave.leave_type}</span>
-								<span class="${leave.status ? 'status-approved' : 'status-pending'}">
-									${leave.status ? 'Approved' : 'Pending'}
-								</span>
-							</div>
-							<div class="leave-details">
-								<p><strong>Leave ID:</strong> ${leave.leave_id}</p>
-								<p><strong>Start Date:</strong> ${leave.start_date}</p>
-								<p><strong>End Date:</strong> ${leave.end_date}</p>
-								<p><strong>Requested At:</strong> ${leave.requested_at}</p>
-							</div>
-						</div>
-					</c:forEach>
-				</div>
-			</c:if>
-		</section>
-	</main>
-
 	<style>
+		.page-container {
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.content-wrapper {
+			flex: 1;
+			padding: 20px;
+			max-width: 1200px;
+			margin: 0 auto;
+			width: 100%;
+		}
+
 		.leave-requests-container {
 			padding: 20px;
 			max-width: 800px;
 			margin: 0 auto;
+			background: rgba(255, 255, 255, 0.9);
+			border-radius: 8px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 		}
 		
 		.leave-request-card {
@@ -140,11 +84,93 @@
 		.centre-text-fullheight {
 			text-align: center;
 			padding: 20px 0;
+			color: white;
+			text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 		}
 		
 		.button-17 {
 			margin: 10px;
 		}
+
+		header {
+			background: rgba(0, 0, 0, 0.5);
+			padding: 10px 0;
+		}
+
+		.no-leaves {
+			text-align: center;
+			padding: 20px;
+			background: rgba(255, 255, 255, 0.9);
+			border-radius: 8px;
+			margin-top: 20px;
+		}
 	</style>
+	<script>
+		function getCookie(name) {
+			let cookieArr = document.cookie.split(";");
+			for (let i = 0; i < cookieArr.length; i++) {
+				let cookiePair = cookieArr[i].split("=");
+				if (name == cookiePair[0].trim()) {
+					return decodeURIComponent(cookiePair[1]);
+				}
+			}
+			return null;
+		}
+
+		function redirectToDashboard() {
+			// Get the user role from the cookie
+			let userRole = getCookie("user_role");
+
+			// Redirect based on the user role
+			if (userRole == "2") {
+				window.location.href = "/managerDashboard";
+			} else if (userRole == "3") {
+				window.location.href = "/assosiateDashboard";
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="page-container">
+		<header>
+			<div class="centre-text-fullheight-leave">
+				<h1>Leave Information</h1>
+			</div>
+			<button class="button-17" onclick="redirectToDashboard()">Back to Dashboard</button>
+		</header>
+
+		<div class="content-wrapper">
+			<c:if test="${not empty errorMessage}">
+				<div class="error">${errorMessage}</div>
+			</c:if>
+
+			<c:if test="${empty leaveInformation}">
+				<div class="no-leaves">
+					<p>No leave records found.</p>
+				</div>
+			</c:if>
+
+			<c:if test="${not empty leaveInformation}">
+				<div class="leave-requests-container">
+					<c:forEach items="${leaveInformation}" var="leave">
+						<div class="leave-request-card">
+							<div class="leave-header">
+								<span class="leave-type">${leave.leave_type}</span>
+								<span class="${leave.status ? 'status-approved' : 'status-pending'}">
+									${leave.status ? 'Approved' : 'Pending'}
+								</span>
+							</div>
+							<div class="leave-details">
+								<p><strong>Leave ID:</strong> ${leave.leave_id}</p>
+								<p><strong>Start Date:</strong> ${leave.start_date}</p>
+								<p><strong>End Date:</strong> ${leave.end_date}</p>
+								<p><strong>Requested At:</strong> ${leave.requested_at}</p>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</c:if>
+		</div>
+	</div>
 </body>
 </html>

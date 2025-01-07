@@ -1,13 +1,45 @@
 @charset "UTF-8";
 
+/* Preload background image */
+body::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	background-image: url('../images/bg.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
 body {
 	background-color: #dfe4ea;
 	font-family: 'Arial', sans-serif;
 	color: #333;
 	margin: 0;
-	background: url('../images/bg.jpg') no-repeat center center/cover; 
 	padding: 0;
-	height: 100vh;
+	min-height: 100vh;
+	position: relative;
+}
+
+/* Add this to ensure content appears above background */
+main, header, section, .container, .card, form {
+	position: relative;
+	z-index: 1;
+}
+
+/* Optional: Add fade-in animation */
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+.fade-in {
+	animation: fadeIn 0.5s ease-in;
 }
 
 .centre-text {
