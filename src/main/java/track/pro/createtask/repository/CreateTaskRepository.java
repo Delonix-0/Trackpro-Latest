@@ -8,14 +8,17 @@ import track.pro.user.entites.User;
 
 public interface CreateTaskRepository {
 	int insertTask(Task task);
-	
+
 	List<User> fetchAllUser();
-	
+
 	List<User> fetchAllEmployee();
-	
+
 	List<Project> fetchAllProject();
+
 	int deleteTask(int taskId);
-	
+
 	int toggleAuthority(int taskId);
+
+	List<Project> fetchProjectsByUserId(int userId);
 
 }

@@ -45,17 +45,18 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 		});
 
 	}
+
 	@Override
 	public List<Project> fectchAllProject() {
 		final String GET_ALL_PROJECT = "SELECT * FROM trackpro.projects";
 
 		return jdbcTemplate.query(GET_ALL_PROJECT, new ProjectRowMapper());
 	}
-	
+
 	@Override
 	public List<Task> fetchTasksByProjectId(int projectId) {
-	    final String GET_TASKS_BY_PROJECT_ID = "SELECT * FROM trackpro.tasks WHERE project_id = ?";
-	    return jdbcTemplate.query(GET_TASKS_BY_PROJECT_ID, new Object[]{projectId}, new TaskRowMapper());
+		final String GET_TASKS_BY_PROJECT_ID = "SELECT * FROM trackpro.tasks WHERE project_id = ?";
+		return jdbcTemplate.query(GET_TASKS_BY_PROJECT_ID, new Object[] { projectId }, new TaskRowMapper());
 	}
 
 	@Override

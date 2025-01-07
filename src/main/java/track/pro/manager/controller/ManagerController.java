@@ -15,36 +15,29 @@ import track.pro.tasks.entites.Task;
 import track.pro.tasks.services.TaskService;
 import track.pro.timesheet.entities.Timesheet;
 
-
 @Controller
 @RequestMapping("/task")
 public class ManagerController {
 	@Autowired
 	ManagerService managerService;
 	@Autowired
-	TaskService  taskService;
+	TaskService taskService;
 	@Autowired
 	CreateTaskService createtaskService;
-	
-	
+
 	@GetMapping("/viewAllTask")
 	public ModelAndView viewAllTask(ModelAndView mView) {
-		List<Task> listOfTasks=managerService.getAllTask();
+		List<Task> listOfTasks = managerService.getAllTask();
 		mView.addObject("listOfTasks", listOfTasks);
 		mView.setViewName("manager/task_list");
 		return mView;
 	}
-	
+
 	@GetMapping("/toggleAuthority/{taskId}")
 	public String toggleAuthority(@PathVariable String taskId) {
-		int id=Integer.parseInt(taskId);
+		int id = Integer.parseInt(taskId);
 		createtaskService.updateStatus(id);
 		return "redirect:/task/viewAllTask";
 	}
-	
-	
 
 }
-	
-
-

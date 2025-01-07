@@ -38,4 +38,6 @@ public interface LeavesService {
     int updateStatus(int leaveId);
 
     void updateRemainingLeaves(int leaveId); // New method to update remaining leaves
+
+    List<Leaves> fetchAllLeaveRequestsByUserId(int user_id);
 }

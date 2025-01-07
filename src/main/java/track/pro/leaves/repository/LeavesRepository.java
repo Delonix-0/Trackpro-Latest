@@ -6,16 +6,19 @@ import track.pro.leaves.entites.LeaveBalance;
 import java.util.List;
 
 public interface LeavesRepository {
-    LeaveBalance fetchLeaveBalanceByUser(int user_id);
+	LeaveBalance fetchLeaveBalanceByUser(int user_id);
 
-    void updateRemainingLeaves(int user_id, int updatedBalance);
+	void updateRemainingLeaves(int user_id, int updatedBalance);
 
-    int insertLeaveRequest(Leaves leaves);
+	int insertLeaveRequest(Leaves leaves);
 
-    List<Leaves> getAllLeaveRequests();
+	List<Leaves> getAllLeaveRequests();
 
-    int toggleAuthority(int leaveId);
+	int toggleAuthority(int leaveId);
 
-    int getLeaveDays(int leaveId); // New method to fetch leave days
-    Leaves getLeaveById(int leaveId);
+	int getLeaveDays(int leaveId); // New method to fetch leave days
+
+	Leaves getLeaveById(int leaveId);
+
+	List<Leaves> getAllLeaveRequestsByUserId(int user_id);
 }

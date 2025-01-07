@@ -25,6 +25,14 @@
 		}
 	}
 
+	function setUpdateManagementLink() {
+		let username = getCookie("username");
+		if (username) {
+			let updateLink = document.getElementById("updateManagementLink");
+			updateLink.href = "/update_profile_form?user_name=" + username;
+		}
+	}
+
 	function clearUsernameCookie() {
 		document.cookie = "username=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
 		window.location.href = "/openloginPage";
@@ -40,7 +48,7 @@
 	</div>
 
 	<div class="container">
-	
+
 		<div class="card">
 			<h2>Home Page</h2>
 			<a href="/openIndexPage">Go to Home</a>
@@ -57,11 +65,16 @@
 			<h2>Manage Leaves</h2>
 			<a href="/leaves">Manage Leaves </a>
 		</div>
-		</div>
-		<div class="container">
-				<div class="card">
+	</div>
+	<div class="container">
+		<div class="card">
 			<h2>Profile Management</h2>
 			<a id="ProfileManagementLink" href="#">Manage Profile</a>
+		</div>
+
+		<div class="card" onclick="setUpdateManagementLink()">
+			<h2>Update Profile</h2>
+			<a id="updateManagementLink" href="#">Update Profile</a>
 		</div>
 
 
@@ -69,10 +82,9 @@
 			<h2>Logout</h2>
 			<a href="/openloginPage">Logout </a>
 		</div>
-		</div>
-
 	</div>
 
+	</div>
 
 
 	<%

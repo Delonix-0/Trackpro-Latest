@@ -9,10 +9,6 @@ import org.springframework.stereotype.Service;
 import track.pro.superadmin.repository.SuperAdminRepository;
 import track.pro.user.entites.User;
 
-
-
-
-
 @Service
 public class SuperAdminServiceImpl implements SuperAdminService {
 

@@ -30,7 +30,7 @@
 
 		<tr>
 			<th>S. No</th>
-			<th>Project Id</th>
+
 			<th>Project Name</th>
 			<th>Description</th>
 			<th>Assigned To Manager</th>
@@ -52,7 +52,7 @@
 
 		<tr>
 			<td><%=sNo%></td>
-			<td><%=project.getProjectId()%></td>
+
 			<td><%=project.getProjectName()%></td>
 			<td><%=project.getDescription()%></td>
 			<td><%=project.getAssignedTo()%></td>

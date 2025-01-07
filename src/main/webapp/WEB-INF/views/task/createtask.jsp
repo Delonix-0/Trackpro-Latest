@@ -6,85 +6,121 @@
 <%@page import="java.util.List"%>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Form</title>
-    <link href="../css/styles.css" rel="stylesheet" type="text/css"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Task</title>
+<link href="../css/styles.css" rel="stylesheet" type="text/css" />
 
-    <script>
-        function validateDate() {
-            const created_at = document.querySelector('input[name="createdAt"]').value;
-            const today = new Date().toISOString().split('T')[0];
 
-            if (created_at < today) {
-                alert("Dates cannot be in the past.");
-                return false;
-            }
-            return true;
-        }
 
-        window.onload = function() {
-            const dateInput = document.querySelector('input[name="createdAt"]');
-            const today = new Date().toISOString().split('T')[0];
-            dateInput.setAttribute("min", today);
-        };
-    </script>
+<script>
+	function validateDate() {
+		const created_at = document.querySelector('input[name="createdAt"]').value;
+		const today = new Date().toISOString().split('T')[0];
+
+		if (created_at < today) {
+			alert("Dates cannot be in the past.");
+			return false;
+		}
+		return true;
+	}
+
+	window.onload = function() {
+		const dateInput = document.querySelector('input[name="createdAt"]');
+		const today = new Date().toISOString().split('T')[0];
+		dateInput.setAttribute("min", today);
+
+		// Check for success parameter
+		const urlParams = new URLSearchParams(window.location.search);
+		if (urlParams.has('success')) {
+			showToast("Task created successfully!");
+		}
+	};
+
+	function showToast(message) {
+		const toast = document.createElement('div');
+		toast.className = 'toast show';
+		toast.innerText = message;
+		document.body.appendChild(toast);
+
+		setTimeout(function() {
+			toast.className = toast.className.replace('show', '');
+			document.body.removeChild(toast);
+		}, 3000);
+	}
+</script>
 </head>
 <body>
 
-<%
-    List<User> listOfUsers = (List<User>) request.getAttribute("listOfUsers");
-    Collections.sort(listOfUsers, (r1, r2) -> r1.getUser_id() - r2.getUser_id());
-%>
+	<%
+	User currentUser = (User) request.getAttribute("currentUser");
+	List<Project> userProjects = (List<Project>) request.getAttribute("userProjects");
+	List<User> listOfEmployees = (List<User>) request.getAttribute("listOfEmployees");
+	%>
 
-<%
-    List<Project> listofProjects = (List<Project>) request.getAttribute("listofProjects");
-    Collections.sort(listofProjects, (r1, r2) -> r1.getProjectId() - r2.getProjectId());
-%>
+	<div class="centre-text-fullheight">
+		<h1>Create Task</h1>
+	</div>
 
-<%
-    List<User> listOfEmployees = (List<User>) request.getAttribute("listOfEmployees");
-    Collections.sort(listOfEmployees, (r1, r2) -> r1.getUser_id() - r2.getUser_id());
-%>
+	<a href="/managerDashboard"><button class="button-17">Back
+			to Dashboard</button></a>
+	<a href="/task/viewAllTask"><button class="button-17">Task
+			List</button></a>
 
-<div class="centre-text-fullheight">
-    <h1>Create Task</h1>
-</div>
+	<form action="/task/createtask" method="post"
+		onsubmit="return validateDate()">
+		<input type="hidden" name="user_name" value="${user_name}" />
 
-<a href="/managerDashboard"><button class="button-17">Back to Dashboard</button></a>
-<a href="/task/viewAllTask"><button class="button-17">Task List</button></a>
-<form action="/task/createtask" method="post" onsubmit="return validateDate()">
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" required><br><br>
+		<div class="form-group">
+			<label for="title">Title:</label> <input type="text" id="title"
+				name="title" required>
+		</div>
 
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" required></textarea><br><br>
+		<div class="form-group">
+			<label for="description">Description:</label>
+			<textarea id="description" name="description" required></textarea>
+		</div>
 
-    Created By:
-    <select name="createdBy">
-        <% for (User user : listOfUsers) { %>
-            <option value="<%= user.getUser_id() %>"><%= user.getFull_name() %></option>
-        <% } %>
-    </select><br><br>
+		<div class="form-group">
+			<label for="createdBy">Created By:</label> <input type="hidden"
+				id="createdBy" name="createdBy"
+				value="<%=currentUser.getUser_id()%>"> <input type="text"
+				value="<%=currentUser.getFull_name()%>" readonly>
+		</div>
 
-    Assigned To User:
-    <select name="assignedTo">
-        <% for (User user : listOfEmployees) { %>
-            <option value="<%= user.getUser_id() %>"><%= user.getFull_name() %></option>
-        <% } %>
-    </select><br><br><br><br>
+		<div class="form-group">
+			<label for="assignedTo">Assigned To User:</label> <select
+				name="assignedTo" id="assignedTo">
+				<%
+				for (User user : listOfEmployees) {
+				%>
+				<option value="<%=user.getUser_id()%>"><%=user.getFull_name()%></option>
+				<%
+				}
+				%>
+			</select>
+		</div>
 
-    Project ID:
-    <select name="projectId">
-        <% for (Project project : listofProjects) { %>
-            <option value="<%= project.getProjectId() %>"><%= project.getProjectName() %></option>
-        <% } %>
-    </select><br><br>
+		<div class="form-group">
+			<label for="projectId">Project ID:</label> <select name="projectId"
+				id="projectId">
+				<%
+				for (Project project : userProjects) {
+				%>
+				<option value="<%=project.getProjectId()%>"><%=project.getProjectName()%></option>
+				<%
+				}
+				%>
+			</select>
+		</div>
 
-    <label for="createdAt">Created At:</label>
-    <input type="date" id="created_at" name="createdAt" required><br><br>
+		<div class="form-group">
+			<label for="createdAt">Created At:</label> <input type="date"
+				id="createdAt" name="createdAt" required>
+		</div>
 
-    <input type="submit" value="Submit">
-</form>
+		<input type="submit" value="Submit">
+	</form>
+
 </body>
 </html>

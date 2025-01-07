@@ -35,20 +35,23 @@ public class CreateTaskServicesImpl implements CreateTaskService {
 
 	@Override
 	public List<User> getAllEmployee() {
-	
+
 		return createtaskRepository.fetchAllEmployee();
 	}
 
 	@Override
 	public int updateStatus(int taskId) {
-		
+
 		return createtaskRepository.toggleAuthority(taskId);
 	}
-	
+
 	@Override
 	public int deleteTask(int taskId) {
 		return createtaskRepository.deleteTask(taskId);
 	}
 
-
+	@Override
+	public List<Project> getProjectsByUserId(int userId) {
+		return createtaskRepository.fetchProjectsByUserId(userId);
+	}
 }

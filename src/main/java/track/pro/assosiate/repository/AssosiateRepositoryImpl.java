@@ -27,7 +27,5 @@ public class AssosiateRepositoryImpl implements AssosiateRepository {
 		final String GET_ALL_ASSOSIATE = "SELECT * FROM trackpro.users where role_id = 3";
 		return jdbcTemplate.query(GET_ALL_ASSOSIATE, new UserRowMapper());
 	}
-	
-	
 
 }

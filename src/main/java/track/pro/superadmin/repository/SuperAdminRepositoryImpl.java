@@ -9,10 +9,8 @@ import org.springframework.stereotype.Repository;
 import track.pro.user.entites.User;
 import track.pro.user.repository.UserRowMapper;
 
-
-
 @Repository
-public class SuperAdminRepositoryImpl implements SuperAdminRepository{
+public class SuperAdminRepositoryImpl implements SuperAdminRepository {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

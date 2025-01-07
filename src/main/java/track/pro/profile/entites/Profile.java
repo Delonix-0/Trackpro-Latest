@@ -4,23 +4,23 @@ import java.util.Arrays;
 
 public class Profile {
 	private int user_id;
-    private String full_name;
-    private String user_name;
-    private String gender;
-    private String mobile;
-    private String email;
-    private byte[] profileimg; // BLOB for profile image
-    private byte[] profileresume; // BLOB for profile resume
-    private String password;
-    private String pwd_salt;
-    private String pwd_hash;
-    private int role_id;
-    private boolean is_authorized;
+	private String full_name;
+	private String user_name;
+	private String gender;
+	private String mobile;
+	private String email;
+	private byte[] profileimg; // BLOB for profile image
+	private byte[] profileresume; // BLOB for profile resume
+	private String password;
+	private String pwd_salt;
+	private String pwd_hash;
+	private int role_id;
+	private boolean is_authorized;
 
-    // Getters and Setters
-    // ... (same as provided earlier)
+	// Getters and Setters
+	// ... (same as provided earlier)
 
-    public int getUser_id() {
+	public int getUser_id() {
 		return user_id;
 	}
 
@@ -132,8 +132,4 @@ public class Profile {
 				+ pwd_salt + ", pwd_hash=" + pwd_hash + ", role_id=" + role_id + ", is_authorized=" + is_authorized
 				+ "]";
 	}
-    }
-
-	
-
-
+}

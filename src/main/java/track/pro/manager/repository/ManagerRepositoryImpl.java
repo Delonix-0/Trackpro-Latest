@@ -31,6 +31,4 @@ public class ManagerRepositoryImpl implements ManagerRepository {
 		return jdbcTemplate.query(GET_ALL_TASK, new TaskRowMapper());
 	}
 
-	
-
 }

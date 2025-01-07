@@ -8,17 +8,16 @@
 <link href="../css/styles.css" rel="stylesheet" type="text/css"/ >
 </head>
 <body>
-<nav>
-        <a href="/managerDashboard">Dashboard</a>
-        <a href="/openTaskPage">Add Task</a>
-        <a href="/task/viewAllTask">Task List</a>
-    </nav>
+	<nav>
+		<a href="/managerDashboard">Dashboard</a> <a href="/openTaskPage">Add
+			Task</a> <a href="/task/viewAllTask">Task List</a>
+	</nav>
 
 
 
 
 
-	
+
 
 </body>
 </html>

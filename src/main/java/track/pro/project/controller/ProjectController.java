@@ -37,12 +37,13 @@ public class ProjectController {
 	public String project(@ModelAttribute Project project, Model model) {
 		try {
 			projectService.insertProject(project);
-			return "redirect:/project/openProjectPage?succes";
+			return "redirect:/project/openProjectPage?success=true";
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Error adding project: " + e.getMessage());
 			return "error";
 		}
 	}
+
 	@GetMapping("/viewAllProject")
 	public ModelAndView viewAllProjects(ModelAndView mView) {
 		List<Project> listofProjects = projectService.getAllProject();
@@ -50,7 +51,7 @@ public class ProjectController {
 		mView.setViewName("super_admin/project_list");
 		return mView;
 	}
-	
+
 	@GetMapping("/viewAllProjecttask")
 	public ModelAndView viewAllProjectstask(ModelAndView mView) {
 		List<Project> listofProjects = projectService.getAllProject();
@@ -58,6 +59,7 @@ public class ProjectController {
 		mView.setViewName("manager/filtertask");
 		return mView;
 	}
+
 	@PostMapping("/viewTasksByProject")
 	public ModelAndView viewTasksByProject(@RequestParam("projectId") int projectId, ModelAndView mView) {
 		List<Task> listOfTasks = projectService.getTasksByProjectId(projectId);

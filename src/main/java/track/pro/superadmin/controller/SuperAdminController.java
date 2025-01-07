@@ -13,7 +13,6 @@ import track.pro.superadmin.service.SuperAdminService;
 import track.pro.user.entites.User;
 import track.pro.user.services.UserService;
 
-
 @Controller
 @RequestMapping("/superadmin")
 public class SuperAdminController {
@@ -29,14 +28,13 @@ public class SuperAdminController {
 		mView.setViewName("super_admin/manager_list");
 		return mView;
 	}
+
 	@GetMapping("/toggleAuthority/{user_id}")
 	public String toggleAuthority(@PathVariable String user_id) {
-		int id= Integer.parseInt(user_id);
+		int id = Integer.parseInt(user_id);
 		userService.updateAuthority(id);
 
-		
-		
-		return  "redirect:/superadmin/viewAllManagers";
+		return "redirect:/superadmin/viewAllManagers";
 	}
-	
+
 }

@@ -10,7 +10,7 @@ import track.pro.user.entites.User;
 
 @Service
 public class AssosiateServiceImpl implements AssosiateService {
-	
+
 	@Autowired
 	AssosiateRepository assosiateRepository;
 

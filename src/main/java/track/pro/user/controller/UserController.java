@@ -48,7 +48,7 @@ public class UserController {
 	public String superAdminDashboard() {
 		return "super_admin/admindashboard";
 	}
-	
+
 	@GetMapping("/assosiateDashboard")
 	public String assosiateDashboard() {
 		return "assosiate/assosiate";
@@ -71,24 +71,23 @@ public class UserController {
 
 	@PostMapping("/changePassword")
 	public String changePassword(@RequestParam String user_name, @RequestParam String oldPassword,
-			@RequestParam String newPassword, Model model) {
-		Optional<User> optUser = userService.fetchUserBy(user_name);
+	                             @RequestParam String newPassword, Model model) {
+	    Optional<User> optUser = userService.fetchUserBy(user_name);
 
-		if (optUser.isEmpty()) {
-			model.addAttribute("message", "User not found");
-			return "user/changePassword";
-		}
+	    if (optUser.isEmpty()) {
+	        model.addAttribute("message", "User not found");
+	        return "user/changePassword";
+	    }
 
-		User user = optUser.get();
+	    User user = optUser.get();
 
-		if (!userService.matchPassword(oldPassword, user)) {
-			model.addAttribute("message", "Old password is incorrect");
-			return "user/changePassword";
-		}
+	    if (!userService.matchPassword(oldPassword, user)) {
+	        model.addAttribute("message", "Old password is incorrect");
+	        return "user/changePassword";
+	    }
 
-		userService.updatePassword(user, newPassword);
-		model.addAttribute("message", "Password changed successfully");
-		return "user/login";
+	    userService.updatePassword(user, newPassword);
+	    return "redirect:/openChangePasswordPage?success=true";
 	}
 
 	@PostMapping("/login")
@@ -118,6 +117,12 @@ public class UserController {
 		usernameCookie.setPath("/"); // Available across the whole app
 		response.addCookie(usernameCookie);
 
+		// Set user role in a cookie
+		Cookie roleCookie = new Cookie("user_role", String.valueOf(registeredUser.getRole_id()));
+		roleCookie.setMaxAge(24 * 60 * 60); // Cookie valid for 1 day
+		roleCookie.setPath("/"); // Available across the whole app
+		response.addCookie(roleCookie);
+
 		model.addAttribute("registeredUser", registeredUser);
 		int roleId = registeredUser.getRole_id();
 		boolean isAuthorized = registeredUser.isIs_authorized();
@@ -132,7 +137,6 @@ public class UserController {
 			model.addAttribute("message", " Your Application is Pending");
 			return "user/login";
 		}
-
 	}
 
 	@PostMapping("/registration")

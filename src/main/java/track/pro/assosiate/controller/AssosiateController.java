@@ -18,26 +18,24 @@ import track.pro.user.services.UserService;
 public class AssosiateController {
 	@Autowired
 	AssosiateService assosiateService;
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@GetMapping("/viewAllAssosiate")
-	public  ModelAndView viewAllTask(ModelAndView mView) {
+	public ModelAndView viewAllTask(ModelAndView mView) {
 		List<User> listOfUser = assosiateService.getAllUser();
 		mView.addObject("listOfUser", listOfUser);
 		mView.setViewName("assosiate/assosiate_list");
 		return mView;
 	}
+
 	@GetMapping("/toggleAuthority/{user_id}")
 	public String toggleAuthority(@PathVariable String user_id) {
-		int id= Integer.parseInt(user_id);
+		int id = Integer.parseInt(user_id);
 		userService.updateAuthority(id);
 
-		
-		
-		return  "redirect:/assosiate/viewAllAssosiate";
+		return "redirect:/assosiate/viewAllAssosiate";
 	}
-	
 
 }

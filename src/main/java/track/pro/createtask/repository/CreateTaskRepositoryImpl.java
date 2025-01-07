@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import track.pro.project.entites.Project;
 import track.pro.tasks.entites.Task;
 import track.pro.user.entites.User;
+
 @Repository
 public class CreateTaskRepositoryImpl implements CreateTaskRepository {
 	@Autowired
@@ -21,11 +22,6 @@ public class CreateTaskRepositoryImpl implements CreateTaskRepository {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-
-	/*
-	 * `task_id`, `title`, `description`, `start_time`, `comp_time`, `duration`,
-	 * `status`, `assigned_to`, `project_id`, `created_by`, `created_at`
-	 */
 
 	@Override
 	public int insertTask(Task task) {
@@ -71,16 +67,24 @@ public class CreateTaskRepositoryImpl implements CreateTaskRepository {
 
 	@Override
 	public int toggleAuthority(int taskId) {
-		final String UPDATE_STATUS="UPDATE `trackpro`.`tasks` SET `status` = !status WHERE task_id=?";
-		return jdbcTemplate.update(UPDATE_STATUS,taskId);
+		final String UPDATE_STATUS = "UPDATE `trackpro`.`tasks` SET `status` = !status WHERE task_id=?";
+		return jdbcTemplate.update(UPDATE_STATUS, taskId);
 	}
-	
 
-	  @Override
-	    public int deleteTask(int taskId) {
-	        final String DELETE_TASK = "DELETE FROM `trackpro`.`tasks` WHERE `task_id` = ?";
-	        return jdbcTemplate.update(DELETE_TASK, taskId);
-	    }
+	@Override
+	public int deleteTask(int taskId) {
+		final String DELETE_TASK = "DELETE FROM `trackpro`.`tasks` WHERE `task_id` = ?";
+		return jdbcTemplate.update(DELETE_TASK, taskId);
+	}
 
+	@Override
+	public List<Project> fetchProjectsByUserId(int userId) {
+		final String GET_PROJECTS_BY_USER = "SELECT * FROM projects WHERE assigned_to = ?";
+		return jdbcTemplate.query(GET_PROJECTS_BY_USER, new Object[] { userId }, (rs, rowNum) -> {
+			int projectId = rs.getInt("project_id");
+			String projectName = rs.getString("project_name");
+			return new Project(projectId, projectName);
+		});
+	}
 
 }

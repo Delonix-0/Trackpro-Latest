@@ -16,4 +16,6 @@ public interface CreateTaskService {
 	List<Project> getAllProject();
 	int updateStatus(int taskId);
 
+	List<Project> getProjectsByUserId(int userId);
+
 }

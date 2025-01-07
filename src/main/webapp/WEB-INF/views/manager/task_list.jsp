@@ -1,7 +1,7 @@
 <%@page import="track.pro.tasks.entites.Task"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,61 +11,63 @@
 </head>
 <body>
 
-<div class="centre-text-fullheight">
-    <h1>Task List</h1>
-</div>
-<a href="/task/opencreateTaskPage"><button class="button-17">Create Task</button></a>
-<a href="/managerDashboard"><button class="button-17">Back to Dashboard</button></a>
-<a href="/project/viewAllProjecttask"><button class="button-17">Task filter</button></a>
+	<div class="centre-text-fullheight">
+		<h1>Task List</h1>
+	</div>
 
-<%
-    List<Task> listOfTasks = (List<Task>) request.getAttribute("listOfTasks");
-%>
+	<a href="/managerDashboard"><button class="button-17">Back
+			to Dashboard</button></a>
+	<a href="/project/viewAllProjecttask"><button class="button-17">Task
+			filter</button></a>
 
-<table>
-    <tr>
-        <th>S. No</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Start Time</th>
-        <th>Completion Time</th>
-        <th>Duration</th>
-        <th>Assigned To</th>
-        <th>Created At</th>
-        <th>Project Id</th>
-        <th>Current Status</th>
-        <th>Complete/Pending</th>
-        <th>Delete Task</th>
-    </tr>
-    <%
-        int sNo = 0;
-        for (Task task : listOfTasks) {
-            sNo = sNo + 1;
-            boolean status = task.isStatus();
-    %>
-    <tr>
-        <td><%= sNo %></td>
-        <td><%= task.getTitle() %></td>
-        <td><%= task.getDescription() %></td>
-        <td><%= task.getStartTime() %></td>
-        <td><%= task.getCompTime() %></td>
-        <td><%= task.getDuration() %></td>
-        <td><%= task.getAssignedTo() %></td>
-        <td><%= task.getCreatedAt() %></td>
-        <td><%= task.getProjectId() %></td>
-        <td><%= status ? "Task is Completed" : "Task Pending" %></td>
-        <td><a href="/task/toggleAuthority/<%= task.getTaskId() %>"><%= status ? "Completed" : "Pending" %></a></td>
-        <td>
-            <input type="hidden" id="taskId_<%= sNo %>" value="<%= task.getTaskId() %>" />
-            <input type="button" class="button-delete" value="Delete" onclick="deleteTask(<%= sNo %>);" />
-        </td>
-    </tr>
-    <%
-        }
-    %>
-</table>
+	<%
+	List<Task> listOfTasks = (List<Task>) request.getAttribute("listOfTasks");
+	%>
 
-<script>
+	<table>
+		<tr>
+			<th>S. No</th>
+			<th>Title</th>
+			<th>Description</th>
+			<th>Start Time</th>
+			<th>Completion Time</th>
+			<th>Duration</th>
+			<th>Assigned To</th>
+			<th>Created At</th>
+			<th>Project Id</th>
+			<th>Current Status</th>
+			<th>Complete/Pending</th>
+			<th>Delete Task</th>
+		</tr>
+		<%
+		int sNo = 0;
+		for (Task task : listOfTasks) {
+			sNo = sNo + 1;
+			boolean status = task.isStatus();
+		%>
+		<tr>
+			<td><%=sNo%></td>
+			<td><%=task.getTitle()%></td>
+			<td><%=task.getDescription()%></td>
+			<td><%=task.getStartTime()%></td>
+			<td><%=task.getCompTime()%></td>
+			<td><%=task.getDuration()%></td>
+			<td><%=task.getAssignedTo()%></td>
+			<td><%=task.getCreatedAt()%></td>
+			<td><%=task.getProjectId()%></td>
+			<td><%=status ? "Task is Completed" : "Task Pending"%></td>
+			<td><a href="/task/toggleAuthority/<%=task.getTaskId()%>"><%=status ? "Completed" : "Pending"%></a></td>
+			<td><input type="hidden" id="taskId_<%=sNo%>"
+				value="<%=task.getTaskId()%>" /> <input type="button"
+				class="button-delete" value="Delete"
+				onclick="deleteTask(<%=sNo%>);" /></td>
+		</tr>
+		<%
+		}
+		%>
+	</table>
+
+	<script>
 function deleteTask(sNo) {
     if (confirm('Are you sure you want to delete this task?')) {
         const taskId = document.getElementById('taskId_' + sNo).value;
